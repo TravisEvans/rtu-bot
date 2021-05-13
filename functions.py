@@ -69,7 +69,7 @@ async def reminder(client, message_called_from):
         print("function working")  # internal reminder
         # time.sleep(1)  # "repeater"
         try:  # message person and send message saying so
-            await target.send(message_request)
+            await target.send(message_request.content)
         except:  # If the user doesn't accept messages perhaps?
             await message_called_from.channel.send("Reminder failed, user may not allow messages")
             break
