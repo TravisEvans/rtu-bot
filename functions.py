@@ -9,7 +9,7 @@ async def reminder(client, message_called_from):
           guild_called_from.id)  # internal reminder of guild / server sent from
 
     #   prompt for target
-    await message_called_from.channel.send("Which user would you like to harass?\nExample:\tname#1234, 125301331431750272")
+    await message_called_from.channel.send("Which user would you like to harass?\nExample:\tserverNickname, chadGamer23")
     try:  # find target to harass
         # wait for message to be sent containing user ID
         target_request = await client.wait_for('message', check=lambda message: message.author == message_called_from.author, timeout=20.0)
@@ -36,6 +36,19 @@ async def reminder(client, message_called_from):
         print("no user found.\n\n--exiting reminder function...--\n\n")
         return
 
+    #get a message to send to the target
+    await message_called_from.channel.send("What would you like to remind them of?")
+    try: 
+        # wait for message to be sent containing message
+        message_request = await client.wait_for('message', check=lambda message: message.author == message_called_from.author, timeout=20.0)
+
+        print("\n--found message--")
+
+    except:  # no user to harass, or other error
+        await message_called_from.channel.send("No user found. Exiting function...")
+        print("no user found.\n\n--exiting reminder function...--\n\n")
+        return
+
     #   display that it is running
     await message_called_from.channel.send(f"Reminding {target.display_name} \n'stop reminder' to stop")
 
@@ -56,7 +69,7 @@ async def reminder(client, message_called_from):
         print("function working")  # internal reminder
         # time.sleep(1)  # "repeater"
         try:  # message person and send message saying so
-            await target.send("this is what my bot does")
+            await target.send(message_request)
         except:  # If the user doesn't accept messages perhaps?
             await message_called_from.channel.send("Reminder failed, user may not allow messages")
             break

@@ -17,7 +17,7 @@ async def receive_message(client, message):
         if message.content == "state":
             await message.channel.send("functional")
 
-        #   reminder function
+        #   reminder function   #   TEMPORARY, NEED TO STICK THIS INTO AN AUTOMATED THING
         if message.content == "reminder":
             print("running reminder")
             finMessage = "__Finished__: " + message.content + " function"
