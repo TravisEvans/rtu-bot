@@ -52,6 +52,5 @@ async def on_raw_reaction_remove(payload: discord.RawReactionActionEvent):
     await role_functions.remove_reaction_role(client, payload)
 
 
-# client.run(CLIENT_SECRET) #   correct, but cant get working rn. dont github push
-client.run("ODQyMTkwNzU0NjEyNTEwNzkx.YJxtQw.gMFaY1lqX-ONQDf97zOnj2Ll2cU")
+client.run(CLIENT_SECRET) #   correct, but cant get working rn. dont github push
 
