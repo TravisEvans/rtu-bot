@@ -17,6 +17,14 @@ async def receive_message(client, message):
         if message.content == "state":
             await message.channel.send("functional")
 
+        #   reminder function
+        if message.content == "reminder":
+            print("running reminder")
+            finMessage = "__Finished__: " + message.content + " function"
+            await harasser_functions.reminder(client, message)
+            print("reminder finished\n")
+            await message.channel.send(finMessage)
+
         if message.content == "stop":
             await client.get_channel(message.channel.id).send(
                 """__***BOT SHUTTING DOWN***__""")
