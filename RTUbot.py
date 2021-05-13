@@ -19,7 +19,7 @@ intents = discord.Intents.default()
 intents.presences = True
 intents.members = True
 bot = commands.Bot(command_prefix="_", description=description, intents=intents)
-client = discord.Client(intents=intents)
+client = discord.Client(intents=intents) 
 # the above line is similar to client = discord.Client(intents=intents)
 
 rtu_bot_channel = 842192748324585472;
