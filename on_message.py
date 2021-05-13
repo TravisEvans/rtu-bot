@@ -21,7 +21,7 @@ async def receive_message(client, message):
         if message.content == "reminder":
             print("running reminder")
             finMessage = "__Finished__: " + message.content + " function"
-            await harasser_functions.reminder(client, message)
+            await functions.reminder(client, message)
             print("reminder finished\n")
             await message.channel.send(finMessage)
 
