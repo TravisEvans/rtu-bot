@@ -24,7 +24,7 @@ async def make_table(client, message_called_from): #   works
         # Query the database and obtain data as Python objects
         cur.execute("SELECT * FROM test;")
         cur.fetchone()(1, 100, "abc'def")#?????
-        await message_called_from.channel.send(cur.fetchone()(1, 100, "abc'def"))  #   to see in server (?)
+        await message_called_from.channel.send("Made a table with (this) name")  #   to see in server (?)
     except:
         await message_called_from.channel.send("Something went wrong, maybe table exists?")  #   to see in server (?)
 
@@ -42,15 +42,18 @@ async def view_table(client, message_called_from): # works
     # Open a cursor to perform database operations
     cur = conn.cursor()
 
-    try:
-        cur.execute("SELECT * FROM test")
-        # print(cur.fetchone())
-        print(cur.fetchall())
-        cur.execute("SELECT data FROM test")
-        print(cur.fetchall())
-        await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
-    except:
-        await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
+    # try:
+    cur.execute("SELECT * FROM test")
+    # print(cur.fetchone())
+    print(cur.fetchall())
+    cur.execute("SELECT data FROM test")
+    print(cur.fetchall())
+    list_of_elements = ""
+    for obj in cur.fetchall():
+        list_of_elements += (obj + "\n")
+    await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
+    # except:
+        # await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
 
         
     cur.close()
@@ -65,7 +68,7 @@ async def add_to_table(client, message_called_from):   #   works
         cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (500, "benis"))
         cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (222, "benis"))
         cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (333, "benis"))
-        await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
+        await message_called_from.channel.send("Added values to table")  #   to see in server (?)
     except:
         await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
 
@@ -81,9 +84,9 @@ async def clear_table(client, message_called_from):
 
     try:
         cur.execute("TRUNCATE TABLE test")
-        await message_called_from.channel.send("emptied table!")
+        await message_called_from.channel.send("Emptied table!")
     except:
-        await message_called_from.channel.send("empty table, or error i guess")
+        await message_called_from.channel.send("Already empty table, or error i guess")
 
     conn.commit()
     cur.close()
