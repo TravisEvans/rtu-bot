@@ -84,11 +84,7 @@ async def delete_table(client, message_called_from):
     cur = conn.cursor()
 
     cur.execute("DROP TABLE test")
-
-    if (cur.fetchall() == null):
-        await message_called_from.channel.send("empty table")
-    else:
-        await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
+    await message_called_from.channel.send("table (probably) deleted!")  #   to see 
     conn.commit()
     cur.close()
     conn.close()
