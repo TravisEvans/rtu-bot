@@ -46,11 +46,10 @@ async def view_table(client, message_called_from): # works
     cur.execute("SELECT * FROM test")
     # print(cur.fetchone())
     print(cur.fetchall())
-    cur.execute("SELECT data FROM test")
-    print(cur.fetchall())
+    
     list_of_elements = ""
     for obj in cur.fetchall():
-        list_of_elements += (obj + "\n")
+        list_of_elements += obj
     await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
     # except:
         # await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
