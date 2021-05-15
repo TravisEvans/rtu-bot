@@ -6,7 +6,7 @@ import psycopg2
 
 async def make_table():
     print("-----------------HIT0")
-    DATABASE_URL = os.environ['heroku config:get DATABASE_URL -a rtu-pybot']
+    DATABASE_URL = os.environ['DATABASE_URL']
     print("-----------------HIT1")
     # Connect to an existing database
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')

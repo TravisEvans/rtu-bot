@@ -20,13 +20,17 @@ async def receive_message(client, message):
         #   reminder function   #   TEMPORARY, NEED TO STICK THIS INTO AN AUTOMATED THING
         if message.content == "reminder":
             print("running reminder")
-            await functions.populate_table()
+            await functions.reminder(client, message)
             print("reminder finished\n")
             finMessage = "__Finished__: " + message.content + " function"
             await message.channel.send(finMessage)
 
-        if message.content == "table":
-            print("running table")
+        if message.content == "make_table":
+            print("running make_table")
+            await functions.make_table()
+            print("make_table finished\n")
+            finMessage = "__Finished__: " + message.content + " function"
+            await message.channel.send(finMessage)
 
 
         if message.content == "stop":
