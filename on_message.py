@@ -46,6 +46,20 @@ async def receive_message(client, message):
             finMessage = "__Finished__: " + message.content + " function"
             await message.channel.send(finMessage)
 
+        if message.content == "clear_table":
+            print("running clear_table")
+            await functions.clear_table()
+            print("clear_table finished\n")
+            finMessage = "__Finished__: " + message.content + " function"
+            await message.channel.send(finMessage)
+
+        if message.content == "delete_table":
+            print("running delete_table")
+            await functions.delete_table()
+            print("delete_table finished\n")
+            finMessage = "__Finished__: " + message.content + " function"
+            await message.channel.send(finMessage)
+
 
         if message.content == "stop":
             await client.get_channel(message.channel.id).send(
