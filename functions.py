@@ -42,17 +42,18 @@ async def view_table(client, message_called_from): # works
     # Open a cursor to perform database operations
     cur = conn.cursor()
 
-    # try:
-    cur.execute("SELECT * FROM test")
-    # print(cur.fetchone())
-    print(cur.fetchall())
-    thing = cur.fetchall()
-    list_of_elements = type(thing[0])
-    for obj in cur.fetchall():
-        list_of_elements += obj
-    await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
-    # except:
-        # await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
+    try:
+        cur.execute("SELECT * FROM test")
+        # print(cur.fetchone())
+        print(cur.fetchall()[0])
+        print(cur.fetchall()[1])
+        thing = cur.fetchall()
+        list_of_elements = type(thing[0])
+        for obj in cur.fetchall():
+            list_of_elements += obj
+        await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
+    except:
+        await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
 
         
     cur.close()
@@ -65,8 +66,8 @@ async def add_to_table(client, message_called_from):   #   works
     cur = conn.cursor()
     try:
         cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (500, "benis"))
-        cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (222, "benis"))
-        cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (333, "benis"))
+        cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (222, "marking"))
+        cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (333, "weenis hasjkfh"))
         await message_called_from.channel.send("Added values to table")  #   to see in server (?)
     except:
         await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
