@@ -37,8 +37,20 @@ async def view_table(): #?might work?
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     # Open a cursor to perform database operations
     cur = conn.cursor()
-    cur.execute("SELECT * FROM test")
+    result = cur.execute("SELECT * FROM test")
+    print("test1")
+    print(result)
+    print("test1")
     cur.execute("SELECT num FROM test")
+    print("test2")
+    cur.fetchone()
+    print("test2")
+    print("test3")
+    print(cur.fetchone())
+    result2 = cur.fetchone()
+    print(result2)
+    print("test3")
+
 
 
 async def add_to_table():
