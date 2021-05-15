@@ -64,7 +64,7 @@ async def clear_table():
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
 
-    cur.execute("TRUNCATE test")
+    cur.execute("TRUNCATE TABLE test")
 
     conn.commit()
     cur.close()
@@ -75,7 +75,7 @@ async def delete_table():
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
 
-    cur.execute("DROP test")
+    cur.execute("DROP TABLE test")
 
     conn.commit()
     cur.close()
