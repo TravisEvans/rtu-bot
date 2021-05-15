@@ -44,7 +44,7 @@ async def view_table(client, message_called_from): # works
     cur.execute("SELECT data FROM test")
     print(cur.fetchall())
 
-    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
+    await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
     cur.close()
     conn.close()
 
@@ -57,7 +57,7 @@ async def add_to_table(client, message_called_from):   #   works
     cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (222, "benis"))
     cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (333, "benis"))
 
-    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
+    await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
     conn.commit()
     cur.close()
     conn.close()
@@ -70,7 +70,10 @@ async def clear_table(client, message_called_from):
 
     cur.execute("TRUNCATE TABLE test")
 
-    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
+    if (cur.fetchall() == null):
+        await message_called_from.channel.send("empty table")
+    else:
+        await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
     conn.commit()
     cur.close()
     conn.close()
@@ -82,7 +85,10 @@ async def delete_table(client, message_called_from):
 
     cur.execute("DROP TABLE test")
 
-    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
+    if (cur.fetchall() == null):
+        await message_called_from.channel.send("empty table")
+    else:
+        await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
     conn.commit()
     cur.close()
     conn.close()
