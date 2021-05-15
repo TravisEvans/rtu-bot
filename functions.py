@@ -42,23 +42,46 @@ async def view_table(): # works
 
     cur.execute("SELECT data FROM test")
     print(cur.fetchall())
-    
+
     cur.close()
     conn.close()
 
 
-
-async def add_to_table():
+async def add_to_table():   #   works
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
-    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (6969, "benis"));
-    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (6969, "benis"));
-    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (6969, "benis"));
+    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (500, "benis"))
+    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (222, "benis"))
+    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (333, "benis"))
     conn.commit()
     cur.close()
     conn.close()
 
+
+async def clear_table():
+    DATABASE_URL = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cur = conn.cursor()
+
+    cur.execute("TRUNCATE test")
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+async def delete_table():
+    DATABASE_URL = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cur = conn.cursor()
+
+    cur.execute("DROP test")
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    
 
 async def reminder(client, message_called_from):
     #   for logging purposes at some point
