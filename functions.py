@@ -21,8 +21,7 @@ async def make_table(): #   works
         
     # Query the database and obtain data as Python objects
     cur.execute("SELECT * FROM test;")
-    cur.fetchone()
-    (1, 100, "abc'def")
+    cur.fetchone()(1, 100, "abc'def")#?????
 
     # Make the changes to the database persistent
     conn.commit()
@@ -38,7 +37,14 @@ async def view_table(): # works
     # Open a cursor to perform database operations
     cur = conn.cursor()
     cur.execute("SELECT * FROM test")
-    print(cur.fetchone())
+    # print(cur.fetchone())
+    print(cur.fetchall())
+
+    cur.execute("SELECT data FROM test")
+    print(cur.fetchall())
+    
+    cur.close()
+    conn.close()
 
 
 
@@ -50,6 +56,8 @@ async def add_to_table():
     cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (6969, "benis"));
     cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (6969, "benis"));
     conn.commit()
+    cur.close()
+    conn.close()
 
 
 async def reminder(client, message_called_from):
