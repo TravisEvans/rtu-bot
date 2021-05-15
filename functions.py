@@ -47,6 +47,7 @@ async def view_table(client, message_called_from): # works
     # print(cur.fetchone())
     if (cur.fetchall() is not None):
         holder = cur.fetchall()
+        print(type(holder))
         list_of_elements = type(holder[0])
         for obj in cur.fetchall():
             list_of_elements += obj
