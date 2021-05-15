@@ -31,12 +31,22 @@ async def make_table(): #   works
     cur.close()
     conn.close()
 
-async def view_table():
+
+async def view_table(): #?might work?
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     # Open a cursor to perform database operations
     cur = conn.cursor()
     print(cur.execute("SELECT * FROM test"))
+    print(cur.execute("SELECT num FROM test"))
+
+
+async def add_to_table():
+    DATABASE_URL = os.environ['DATABASE_URL']
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    cur = conn.cursor()
+    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (6969, "benis"));
+
 
 async def reminder(client, message_called_from):
     #   for logging purposes at some point
