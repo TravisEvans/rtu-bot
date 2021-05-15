@@ -45,13 +45,14 @@ async def view_table(client, message_called_from): # works
     # try:
     cur.execute("SELECT * FROM test")
     # print(cur.fetchone())
-    print(cur.fetchall()[0])
-    print(cur.fetchall()[1])
-    thing = cur.fetchall()
-    list_of_elements = type(thing[0])
-    for obj in cur.fetchall():
-        list_of_elements += obj
-    await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
+    if (cur.fetchall() is not None:
+        list_of_elements = type(thing[0])
+        for obj in cur.fetchall():
+            list_of_elements += obj
+        await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
+    else:
+        await message_called_from.channel.send("Something went wrong. Maybe no elements in table?")  #   to see in server (?)
+
     # except:
         # await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
 
@@ -180,4 +181,3 @@ async def reminder(client, message_called_from):
             await target.send(message_request.content)
         except:  # If the user doesn't accept messages perhaps?
             await message_called_from.channel.send("Reminder failed, user may not allow messages")
-            break
