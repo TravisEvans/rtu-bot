@@ -37,8 +37,8 @@ async def view_table(): #?might work?
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     # Open a cursor to perform database operations
     cur = conn.cursor()
-    print(cur.execute("SELECT * FROM test"))
-    print(cur.execute("SELECT num FROM test"))
+    cur.execute("SELECT * FROM test")
+    cur.execute("SELECT num FROM test")
 
 
 async def add_to_table():
@@ -46,6 +46,7 @@ async def add_to_table():
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
     cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (6969, "benis"));
+    conn.commit()
 
 
 async def reminder(client, message_called_from):
