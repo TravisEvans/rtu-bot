@@ -14,7 +14,7 @@ CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 ####        https://discordpy.readthedocs.io/en/latest/index.html
 ####
 
-description = "JACKBOT"
+description = "RTU pybot"
 intents = discord.Intents.default()
 intents.presences = True
 intents.members = True
@@ -31,7 +31,7 @@ async def on_ready():  # when the bot is ready to do things (on discord)
     print('logged in as {0.user}'.format(client))
     await bot_channel.send("""
 *__RTU BOT RUNNING__*\n
-Now being hosted from a web server, therefore permanent.
+next thing to add is the birfday dbase.
 """)
 
 @client.event

@@ -1,6 +1,20 @@
 import discord
 from discord.ext import commands
 
+import os
+import psycopg2
+
+async def populate_table():
+    DATABASE_URL = os.environ['DATABASE_URL']
+
+    conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+
+    cur.execute("""
+        INSERT INTO some_table (an_int, a_date, a_string)
+        VALUES (%s, %s, %s);
+        """, (10, datetime.date(2005, 11, 18), "O'Reilly"))
+
+
 async def reminder(client, message_called_from):
     #   for logging purposes at some point
     # get server the function is requested from
