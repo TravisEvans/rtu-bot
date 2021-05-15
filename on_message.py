@@ -32,6 +32,13 @@ async def receive_message(client, message):
             finMessage = "__Finished__: " + message.content + " function"
             await message.channel.send(finMessage)
 
+        if message.content == "view_table":
+            print("running view_table")
+            await functions.view_table()
+            print("view_table finished\n")
+            finMessage = "__Finished__: " + message.content + " function"
+            await message.channel.send(finMessage)
+
 
         if message.content == "stop":
             await client.get_channel(message.channel.id).send(
