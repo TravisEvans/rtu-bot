@@ -12,17 +12,21 @@ async def make_table(client, message_called_from): #   works
     # Open a cursor to perform database operations
     cur = conn.cursor()
 
-    # Execute a command: this creates a new table
-    cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+    try:
 
-    # Pass data to fill a query placeholders and let Psycopg perform
-    # the correct conversion (no more SQL injections!)
-    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",(100, "abc'def"))
-        
-    # Query the database and obtain data as Python objects
-    cur.execute("SELECT * FROM test;")
-    cur.fetchone()(1, 100, "abc'def")#?????
-    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
+        # Execute a command: this creates a new table
+        cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+
+        # Pass data to fill a query placeholders and let Psycopg perform
+        # the correct conversion (no more SQL injections!)
+        cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",(100, "abc'def"))
+            
+        # Query the database and obtain data as Python objects
+        cur.execute("SELECT * FROM test;")
+        cur.fetchone()(1, 100, "abc'def")#?????
+        await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
+    except:
+        await message_called_from.channel.send("Something went wrong, maybe table exists?")  #   to see in server (?)
 
     # Make the changes to the database persistent
     conn.commit()
@@ -37,14 +41,18 @@ async def view_table(client, message_called_from): # works
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     # Open a cursor to perform database operations
     cur = conn.cursor()
-    cur.execute("SELECT * FROM test")
-    # print(cur.fetchone())
-    print(cur.fetchall())
 
-    cur.execute("SELECT data FROM test")
-    print(cur.fetchall())
+    try:
+        cur.execute("SELECT * FROM test")
+        # print(cur.fetchone())
+        print(cur.fetchall())
+        cur.execute("SELECT data FROM test")
+        print(cur.fetchall())
+        await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
+    except:
+        await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
 
-    await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
+        
     cur.close()
     conn.close()
 
@@ -53,11 +61,14 @@ async def add_to_table(client, message_called_from):   #   works
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
-    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (500, "benis"))
-    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (222, "benis"))
-    cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (333, "benis"))
+    try:
+        cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (500, "benis"))
+        cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (222, "benis"))
+        cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (333, "benis"))
+        await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
+    except:
+        await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
 
-    await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
     conn.commit()
     cur.close()
     conn.close()
@@ -68,12 +79,12 @@ async def clear_table(client, message_called_from):
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
 
-    cur.execute("TRUNCATE TABLE test")
+    try:
+        cur.execute("TRUNCATE TABLE test")
+        await message_called_from.channel.send("emptied table!")
+    except:
+        await message_called_from.channel.send("empty table, or error i guess")
 
-    if (cur.fetchall() == null):
-        await message_called_from.channel.send("empty table")
-    else:
-        await message_called_from.channel.send(cur.fetchall())  #   to see in server (?)
     conn.commit()
     cur.close()
     conn.close()
@@ -83,8 +94,12 @@ async def delete_table(client, message_called_from):
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
 
-    cur.execute("DROP TABLE test")
-    await message_called_from.channel.send("table (probably) deleted!")  #   to see 
+    try:
+        cur.execute("DROP TABLE test")
+        await message_called_from.channel.send("table (probably) deleted!")  #   to see 
+    except:
+        await message_called_from.channel.send("table does not exist, hopefull not an error")  #   to see 
+        
     conn.commit()
     cur.close()
     conn.close()
