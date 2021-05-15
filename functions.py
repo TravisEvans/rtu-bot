@@ -22,8 +22,7 @@ async def make_table():
 
     # Pass data to fill a query placeholders and let Psycopg perform
     # the correct conversion (no more SQL injections!)
-    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",
-                    ...      (100, "abc'def"))
+    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",(100, "abc'def"))
     print("-----------------HIT5")
         
     # Query the database and obtain data as Python objects
