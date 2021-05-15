@@ -4,7 +4,7 @@ from discord.ext import commands
 import os
 import psycopg2
 
-async def make_table(): #   works
+async def make_table(client, message_called_from): #   works
     DATABASE_URL = os.environ['DATABASE_URL']
     # Connect to an existing database
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
@@ -22,6 +22,7 @@ async def make_table(): #   works
     # Query the database and obtain data as Python objects
     cur.execute("SELECT * FROM test;")
     cur.fetchone()(1, 100, "abc'def")#?????
+    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
 
     # Make the changes to the database persistent
     conn.commit()
@@ -31,7 +32,7 @@ async def make_table(): #   works
     conn.close()
 
 
-async def view_table(): # works
+async def view_table(client, message_called_from): # works
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     # Open a cursor to perform database operations
@@ -43,40 +44,45 @@ async def view_table(): # works
     cur.execute("SELECT data FROM test")
     print(cur.fetchall())
 
+    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
     cur.close()
     conn.close()
 
 
-async def add_to_table():   #   works
+async def add_to_table(client, message_called_from):   #   works
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
     cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (500, "benis"))
     cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (222, "benis"))
     cur.execute("INSERT INTO test(num, data) VALUES (%s, %s)", (333, "benis"))
+
+    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
     conn.commit()
     cur.close()
     conn.close()
 
 
-async def clear_table():
+async def clear_table(client, message_called_from):
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
 
     cur.execute("TRUNCATE TABLE test")
 
+    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
     conn.commit()
     cur.close()
     conn.close()
 
-async def delete_table():
+async def delete_table(client, message_called_from):
     DATABASE_URL = os.environ['DATABASE_URL']
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
     cur = conn.cursor()
 
     cur.execute("DROP TABLE test")
 
+    await message_called_from.channel.send(cur.fetchone())  #   to see in server (?)
     conn.commit()
     cur.close()
     conn.close()
