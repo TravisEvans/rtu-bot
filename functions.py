@@ -6,32 +6,39 @@ import psycopg2
 
 async def make_table():
     DATABASE_URL = os.environ['DATABASE_URL']
-
+    print("-----------------HIT1")
     # Connect to an existing database
     conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+    print("-----------------HIT2")
 
     # Open a cursor to perform database operations
     cur = conn.cursor()
+    print("-----------------HIT3")
 
     # Execute a command: this creates a new table
     cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+    print("-----------------HIT4")
 
     # Pass data to fill a query placeholders and let Psycopg perform
     # the correct conversion (no more SQL injections!)
     cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",
                     ...      (100, "abc'def"))
+    print("-----------------HIT5")
         
     # Query the database and obtain data as Python objects
     cur.execute("SELECT * FROM test;")
     cur.fetchone()
     (1, 100, "abc'def")
+    print("-----------------HIT6")
 
     # Make the changes to the database persistent
     conn.commit()
-    
+    print("-----------------HIT7")
+
     # Close communication with the database
     cur.close()
     conn.close()
+    print("-----------------HIT8")
 
 
 async def reminder(client, message_called_from):
