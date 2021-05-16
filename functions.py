@@ -47,10 +47,11 @@ async def view_table(client, message_called_from): # works
     # print(cur.fetchone())
     if (cur.fetchall() is not None):
         holder = cur.fetchall()
-        print(type(holder))
-        list_of_elements = type(holder[0])
+        # print(type(holder))
+        list_of_elements = ""
         for obj in cur.fetchall():
-            list_of_elements += obj
+            for obj2 in obj:
+                list_of_elements += obj
         await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
     else:
         await message_called_from.channel.send("Something went wrong. Maybe no elements in table?")  #   to see in server (?)
