@@ -23,8 +23,8 @@ async def make_table(client, message_called_from): #   works
         
     # Query the database and obtain data as Python objects
     cur.execute("SELECT * FROM test;")
-    cur.fetchone()(1, 100, "abc'def")#?????
-    printf("made {cur.fetchall()}")
+    # cur.fetchone()(1, 100, "abc'def")#?????
+    print(f"made {cur.fetchall()}")
     await message_called_from.channel.send("Made a table with (name) name")  #   to see in server (?)
     # except:
         # await message_called_from.channel.send("Something went wrong, maybe table exists?")  #   to see in server (?)
