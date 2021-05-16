@@ -12,21 +12,22 @@ async def make_table(client, message_called_from): #   works
     # Open a cursor to perform database operations
     cur = conn.cursor()
 
-    try:
+    # try:
 
-        # Execute a command: this creates a new table
-        cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+    # Execute a command: this creates a new table
+    cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
 
-        # Pass data to fill a query placeholders and let Psycopg perform
-        # the correct conversion (no more SQL injections!)
-        cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",(100, "abc'def"))
-            
-        # Query the database and obtain data as Python objects
-        cur.execute("SELECT * FROM test;")
-        cur.fetchone()(1, 100, "abc'def")#?????
-        await message_called_from.channel.send("Made a table with (this) name")  #   to see in server (?)
-    except:
-        await message_called_from.channel.send("Something went wrong, maybe table exists?")  #   to see in server (?)
+    # Pass data to fill a query placeholders and let Psycopg perform
+    # the correct conversion (no more SQL injections!)
+    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",(100, "abc'def"))
+        
+    # Query the database and obtain data as Python objects
+    cur.execute("SELECT * FROM test;")
+    cur.fetchone()(1, 100, "abc'def")#?????
+    printf("made {cur.fetchall()}")
+    await message_called_from.channel.send("Made a table with (name) name")  #   to see in server (?)
+    # except:
+        # await message_called_from.channel.send("Something went wrong, maybe table exists?")  #   to see in server (?)
 
     # Make the changes to the database persistent
     conn.commit()
@@ -52,7 +53,7 @@ async def view_table(client, message_called_from): # works
         for obj in cur.fetchall():
             for obj2 in obj:
                 list_of_elements += obj
-        list_of_elements += "\n"
+            list_of_elements += "\n"
         await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
     else:
         await message_called_from.channel.send("Something went wrong. Maybe no elements in table?")  #   to see in server (?)
