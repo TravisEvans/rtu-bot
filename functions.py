@@ -4,6 +4,13 @@ from discord.ext import commands
 import os
 import psycopg2
 
+
+async def help(client, message_called_from):
+    await message_called_from.author.send("Find the bot documentation here!")
+    await message_called_from.author.send("")
+    
+
+
 async def make_table(client, message_called_from): #   works
     DATABASE_URL = os.environ['DATABASE_URL']
     # Connect to an existing database

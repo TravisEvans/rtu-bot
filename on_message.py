@@ -59,6 +59,13 @@ async def receive_message(client, message):
             print("delete_table finished\n")
             finMessage = "__Finished__: " + message.content + " function"
             await message.channel.send(finMessage)
+        
+        if message.content == "help":
+            print("running help")
+            await functions.help(client, message)
+            print("help finished\n")
+            finMessage = "__Help has been sent!__"
+            await message.channel.send(finMessage)
 
 
         if message.content == "stop":
