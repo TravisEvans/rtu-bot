@@ -24,7 +24,7 @@ async def make_table(client, message_called_from): #   works
     # Query the database and obtain data as Python objects
     cur.execute("SELECT * FROM test;")
     # cur.fetchone()(1, 100, "abc'def")#?????
-    print(f"made {cur.fetchall()}")
+    print(f"Made {cur.fetchall()}")
     await message_called_from.channel.send("Made a table with (name) name")  #   to see in server (?)
     # except:
         # await message_called_from.channel.send("Something went wrong, maybe table exists?")  #   to see in server (?)
@@ -46,18 +46,14 @@ async def view_table(client, message_called_from): # works
     # try:
     cur.execute("SELECT * FROM test")
     # print(cur.fetchone())
-    if (cur.fetchall() is not None):
-        print(cur.fetchall())
-        print("^THIS IS EXACTLY WHAT SHOULD BE PRINTED^")
-        list_of_elements = ""
-        for obj in cur.fetchall():
-            for obj2 in obj:
-                list_of_elements += obj
-            list_of_elements += "\n"
-        await message_called_from.channel.send(list_of_elements)  #   to see in server (?)
-    else:
-        await message_called_from.channel.send("Something went wrong. Maybe no elements in table?")  #   to see in server (?)
-
+    print(cur.fetchall())
+    print("^THIS IS EXACTLY WHAT SHOULD BE PRINTED^")
+    list_of_elements = ""
+    for obj in cur.fetchall():
+        for obj2 in obj:
+            list_of_elements += "(" + obj + ")"
+        list_of_elements += "\n"
+    await message_called_from.channel.send("[" + list_of_elements + "]")  #   to see in server (?)
     # except:
         # await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
 
