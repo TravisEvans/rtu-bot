@@ -7,7 +7,7 @@ import psycopg2
 
 async def help(client, message_called_from):
     await message_called_from.author.send("Find the bot documentation here!")
-    await message_called_from.author.send("")
+    await message_called_from.author.send("https://github.com/TravisEvans/RTUpybot/tree/master#readme")
     
 
 
