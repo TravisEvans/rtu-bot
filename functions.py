@@ -48,12 +48,12 @@ async def view_table(client, message_called_from): # works
     # print(cur.fetchone())
     print(cur.fetchall())
     print("^THIS IS EXACTLY WHAT SHOULD BE PRINTED^")
-    list_of_elements = ""
+    list_of_elements = None
     for obj in cur.fetchall():
         for obj2 in obj:
             list_of_elements += "(" + obj + ")"
         list_of_elements += "\n"
-    await message_called_from.channel.send("[" + list_of_elements + "]")  #   to see in server (?)
+    await message_called_from.channel.send(f"[prolly borked{cur.fetchall()}]")  #   to see in server (?)
     # except:
         # await message_called_from.channel.send("Something went wrong, table probably not found")  #   to see in server (?)
 
