@@ -34,12 +34,19 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-    console.log("DISCORD:\t${client.user.tag} logged in");
+    console.log('DISCORD:\t ${client.user.tag} logged in');
 });
 
 client.on('message', (msg) => {
-    if (msg.content === 'ping') {
-        msg.reply('Pong!');
+    if (msg.author === 'celery#9490') {
+        if (msg.content === "_help")    {
+            msg.reply("Help has been sent!");
+            msg.author.send("*Following this is a link directly to the documentation of this bot*:\n" +
+            "https://github.com/TravisEvans/rtu-bot \n" +
+            "More specific help is to be implemented, but for now make do with the README at the bottom," +
+            " or send a message to the developer (celery#9490)");
+        }
+
     }
 });
 
