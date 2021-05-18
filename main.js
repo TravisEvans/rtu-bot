@@ -10,10 +10,10 @@ var server = http.Server(app);
 app.use(express.static('client'))
 
 server.listen(PORT, () =>   {
-    console.log("Bot launched");
+    console.log("SERVER:\tBot launched");
 })
 
-///////////////////////////////////////////////dont know what these are
+///////////////////////////////////////////////dont know what these are, believe is for exporting vars?
 // var io = require('socket.io')(server);
 
 // io.on('connection', (socket) => {
@@ -28,10 +28,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log("DISCORD:\t${client.user.tag} logged in");
 });
 
-client.on('message', msg => {
+client.on('message', (msg) => {
     if (msg.content === 'ping') {
         msg.reply('Pong!');
     }
