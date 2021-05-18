@@ -1,7 +1,7 @@
 //  dotenv
 var dotenv = require('dotenv');
 // dotenv.config(); gets all environment variables
-BOT_TOKEN = process.env.BOT_TOKEN;  //  gets only one environment var
+var BOT_TOKEN = process.env.BOT_TOKEN;  //  gets only one environment var
 
 //  Heroku
 var PORT = process.env.PORT || 5000;
