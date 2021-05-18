@@ -1,11 +1,11 @@
 //  dotenv
-var dotenv = require('dotenv');
-dotenv.config(); // loads? all environment variables
-var BOT_TOKEN = process.env.BOT_TOKEN;  //  gets loaded env var
-console.log(BOT_TOKEN);
+// var dotenv = require('dotenv');
+// dotenv.config(); // loads? all environment variables
 
 //  Heroku
 var PORT = process.env.PORT || 5000;
+var BOT_TOKEN = process.env.BOT_TOKEN;  //  gets loaded env var (from heroku, it can set env vars)
+console.log(BOT_TOKEN);
 
 //  Express
 var express = require('express');
