@@ -5,7 +5,6 @@
 //  Heroku
 var PORT = process.env.PORT || 5000;
 var BOT_TOKEN = process.env.BOT_TOKEN;  //  gets loaded env var (from heroku, it can set env vars)
-console.log(BOT_TOKEN);
 
 //  Express
 var express = require('express');
@@ -38,14 +37,22 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg) => {
+    msg.channel.send(msg.author);
+    msg.channel.send(msg.guild);
     if (msg.author === 'celery#9490') {
+        console.log("DISCORD:\tDev functions accessed")
+        //  help
         if (msg.content === "_help")    {
             msg.reply("Help has been sent!");
             msg.author.send("*Following this is a link directly to the documentation of this bot*:\n" +
             "https://github.com/TravisEvans/rtu-bot \n" +
-            "More specific help is to be implemented, but for now make do with the README at the bottom," +
-            " or send a message to the developer (celery#9490)");
+            "More specific help is to be implemented, but for now make do with the README at the bottom, " +
+            "or send a message to the developer (celery#9490)");
         }
+
+        //  
+
+        //  database
 
     }
 });
