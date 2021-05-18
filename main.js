@@ -9,7 +9,6 @@ client.on('message', msg => {
     if (msg.content === 'ping') {
         msg.reply('Pong!');
     }
-    
 });
 
 client.login('ODQzOTgyNDA4MDA0MDA5OTg1.YKLx3g.xPt65LmLhwugigkf72-vrfPK1hU');
