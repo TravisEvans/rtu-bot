@@ -1,3 +1,6 @@
+//  external files
+var on_message = require('./on_message');
+
 //  dotenv
 var dotenv = require('dotenv');
 dotenv.config(); // loads? all environment variables
@@ -15,7 +18,7 @@ var server = http.Server(app);
 app.use(express.static('client'))
 
 server.listen(PORT, () =>   {
-    console.log("SERVER:\tBot launched");
+    console.log("EXPRESS:\tBot launched");
 })
 
 ///////////////////////////////////////////////dont know what these are, believe is for exporting vars?
@@ -43,25 +46,10 @@ var celeryID = "171178377976348674"
     
 // })
 
-client.on('message', (msg) => {
-    // .catch("error");
-    // msg.channel.send(msg.author.id + msg.author.username)
-    if (msg.author.id == celeryID) {
-        console.log("DISCORD:\tDev functions accessed")
-        //  help
-        if (msg.content === "_help")    {
-            msg.reply("Help has been sent!");
-            msg.author.send("*Following this is a link directly to the documentation of this bot*:\n" +
-            "https://github.com/TravisEvans/rtu-bot \n")
-            msg.author.send("More specific help is to be implemented, but for now make do with the README at the bottom, " +
-            "or send a message to the developer (celery#9490)");
-        }
-
-        //  
-
-        //  database
-
-    }
+client.on('message', (client, msg) => {
+    on_message.check_message(client, msg);
+    
 });
+// .catch("error");
 
 client.login(BOT_TOKEN);
