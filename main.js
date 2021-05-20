@@ -1,5 +1,5 @@
 //  external files
-var on_message = require('./on_message');
+var on_message = require('./on_message.js');
 
 //  dotenv
 var dotenv = require('dotenv');
@@ -40,15 +40,14 @@ client.on('ready', () => {
 });
 
 //////////////
-var celeryID = "171178377976348674"
 
 // client.on('ready', () => {
     
 // })
 
-client.on('message', (client, msg) => {
-    on_message.check_message(client, msg);
-    
+client.on('message', (msg) => {
+    // console.log(`############${Discord}, ${client}, ${msg}`);
+    on_message.checkMessage(msg);
 });
 // .catch("error");
 
