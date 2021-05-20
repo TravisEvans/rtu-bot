@@ -25,16 +25,18 @@ function reminder(msg) {
         errors: ['time']
     })
     .then(recievedMessage => {
-        // console.log("LOOKING FOR MESSAGE INFO");
-        // console.log(recievedMessage);
-        // console.log("LOOKING FOR GUILD INFO");
-        let guilds = msg.client.guilds
-        // console.log(guilds);
-        console.log("LOOKING FOR MEMBER INFO");
-        guilds.forEach(guild => console.log("4"));
-        console.log("hit");
-        // console.log(guilds.forEach(members.forEach(member => console.log(member.user.username))));
-        // console.log(guilds.forEach(members.fetch()));
+        let guildCollection = msg.client.guilds;
+
+        
+        
+        console.log(guildCollection.keys());
+        
+
+        // let guildMembers = guildCollection.cache.map(guild => guild.members.fetch()); // guildMembers is guild.members for all guilds
+        // guildMembers.cache.map(guildMembers => console.log(guildMembers.fetch()));
+        // guildMembers.forEach(guildMember => console.log(guildMember));
+
+
     })
     .catch(err => {
         // msg.channel.send("Guess you got bored. Nevermind!");

@@ -41,9 +41,10 @@ client.on('ready', () => {
 
 //////////////
 
-// client.on('ready', () => {
-    
-// })
+client.on('ready', () => {
+    client.channels.fetch('797492376888148008')
+    .then(channel => channel.send("bot up"));  
+})
 
 client.on('message', (msg) => {
     // console.log(`############${Discord}, ${client}, ${msg}`);
