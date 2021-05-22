@@ -10,7 +10,7 @@ var celeryID = 171178377976348674;
 
 function checkMessage(msg) {    // msg.channel.send(msg.author.id + msg.author.username)
     if (msg.author.id == celeryID) {    //  celery is Travis Evans, me, the developer
-        console.log(`DISCORD:\tDev functions accessed by ${msg.author.tag}`)
+        // console.log(`DISCORD:\tDev functions accessed by ${msg.author.tag}`)
     
         //  testing
         if (msg.content === "_state") {

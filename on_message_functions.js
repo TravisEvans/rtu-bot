@@ -27,14 +27,41 @@ function reminder(msg) {
     .then(recievedMessage => {
         let guildCollection = msg.client.guilds;
 
-        
-        
-        console.log(guildCollection.keys());
-        
-
         // let guildMembers = guildCollection.cache.map(guild => guild.members.fetch()); // guildMembers is guild.members for all guilds
-        // guildMembers.cache.map(guildMembers => console.log(guildMembers.fetch()));
+        
+        let guildIDs =  guildCollection.cache.map(guild => guild.id);
+        
+        guildIDs.forEach(id => {
+            // console.log(client.guilds.cache.get(id));
+            let guild = guildCollection.cache.get(id);
+            // console.log(guild.name + " found");
+            
+            console.log(recievedMessage);
+            let target = guild.members.cache.find(guildMember => {
+                guildMember.user.username == recievedMessage || hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
+                guildMember.user.id == recievedMessage || 
+                guildMember.user.tag == recievedMessage
+            });
+
+            // let target = guild.members.cache.find(guildMember => guildMember.user.tag == "celery#9490");
+
+            if (!target)    {
+                console.log("Not found in guild");
+                // msg.channel.send("Target not found");
+            } else {
+                console.log("Found target: " + target.name);
+                msg.channel.send("found em");
+            }
+
+        });
+
         // guildMembers.forEach(guildMember => console.log(guildMember));
+        // guildMembers.forEach(guildMember => console.log(guildMember));
+        // guildMembers.forEach(guildMember => console.log(Object.getOwnPropertyNames(guildMember)));
+        
+        
+        // console.log(Object.keys(guildCollection.cache);  // not sure what it does, but it does sonething
+        
 
 
     })
