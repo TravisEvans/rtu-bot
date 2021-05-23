@@ -1,7 +1,6 @@
 ////////////////
 ////////////////
 
-
 //  testing
 function state(msg)  {
     msg.channel.send("Working for the moment!");
@@ -17,62 +16,95 @@ function help(msg) {
 
 //  reminder
 function reminder(msg) {
-    let filter = m => m.author.id == msg.author.id;
+    let target, reminderMessage; //  easymode globals
+    let filter = m => m.author.id === msg.author.id;
+
     msg.channel.send("Which user would you like to harass?\nExample:\tserverNickname, chadGamer23");
     msg.channel.awaitMessages(filter,{
         max: 1,
         time: 20000,
         errors: ['time']
     })
-    .then(recievedMessage => {
-        let guildCollection = msg.client.guilds;
-
-        // let guildMembers = guildCollection.cache.map(guild => guild.members.fetch()); // guildMembers is guild.members for all guilds
-        
-        let guildIDs =  guildCollection.cache.map(guild => guild.id);
-        
-        guildIDs.forEach(id => {
-            // console.log(client.guilds.cache.get(id));
-            let guild = guildCollection.cache.get(id);
-            // console.log(guild.name + " found");
+        .then(recievedMessage => {
+            let guildCollection = msg.client.guilds;        
+            let guildIDs =  guildCollection.cache.map(guild => guild.id);
             
-            console.log(recievedMessage);
-            let target = guild.members.cache.find(guildMember => {
-                guildMember.user.username == recievedMessage || hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-                guildMember.user.id == recievedMessage || 
-                guildMember.user.tag == recievedMessage
-            });
+            for (let guildID of guildIDs)   {
+                let guild = guildCollection.cache.get(guildID);
+                let recMesContent = recievedMessage.first().content;
+                // console.log(recMesContent);  //  THIS PRINTS THE RECIEVED MESSAGE CONTENT, LEAVE IT
+                
+                // let potTarget = guild.members.cache.find(guildMember => guildMember.user.tag == "celery#9490");    //  this returns the GuildMember object
+                
+                //  just listing where checking
+                console.log(`\nChecking guild:\t${guild.name}`);
+                //  searching
+                //  target should be either false or populated here
+                target = guild.members.cache.find(guildMember => 
+                    guildMember.user.username == recMesContent || 
+                    guildMember.user.id == recMesContent || 
+                    guildMember.user.tag == recMesContent);
+                    
+                if (target) {
+                    console.log(`--\tFound ${target.user.tag}`);
+                    break;
+                }
+            }
+            console.log("\n");
 
-            // let target = guild.members.cache.find(guildMember => guildMember.user.tag == "celery#9490");
-
+            //  validating ig
             if (!target)    {
-                console.log("Not found in guild");
-                // msg.channel.send("Target not found");
+                console.log("\nNo target found");
+                // msg.channel.send("target not found");
+                msg.channel.send("No target found, exiting...");
+                return;
             } else {
-                console.log("Found target: " + target.name);
-                msg.channel.send("found em");
+                msg.channel.send("Found user!\nWhat would you like to __*let them know*__");
             }
 
+            //  get their message
+            msg.channel.awaitMessages(filter, {
+                max: 1,
+                time: 20000,
+                errors: ['time']
+            })
+            .then(recievedMessage => {
+                //  spamming time
+                msg.channel.send("Sending some love now.\nSend `_stop` to stop the lovin'");
+                reminderMessage = recievedMessage.first().content;
+                console.log("hit0");
+                spam(msg, target, reminderMessage);
+                console.log("hit4");
+            })
+            .catch(console.error);
+            
+            
+        })
+        .catch(err => {
+            msg.channel.send("Guess you got bored. Nevermind!");
+            console.log("reminder finished\n");
+            // let finMessage = `__Finished__: ${msg.content} function`;
+            // msg.channel.send(finMessage);
         });
 
-        // guildMembers.forEach(guildMember => console.log(guildMember));
-        // guildMembers.forEach(guildMember => console.log(guildMember));
-        // guildMembers.forEach(guildMember => console.log(Object.getOwnPropertyNames(guildMember)));
+    //  spamming time
         
-        
-        // console.log(Object.keys(guildCollection.cache);  // not sure what it does, but it does sonething
-        
+}
 
-
-    })
-    .catch(err => {
-        // msg.channel.send("Guess you got bored. Nevermind!");
-        let finMessage = `__Finished__: ${msg.content} function`;
-        msg.channel.send(finMessage);
-        // console.log("_reminder finished");
-    })
+function spam(callingMsg, target, spamMsg)  {
+    //  send
+    target.user.send(spamMsg);
     
-    // console.log("reminder finished(?)\n");
+    if (i >= 8) {
+        console.log(callingMsg.channel.lastMessage.content);
+        if (callingMsg.channel.lastMessage.content === "_stop") {
+            console.log("hit3");
+            msg.channel.send("Reminder stopped\n");
+            console.log("reminder finished\n");
+            return;
+        }
+        i = 0;
+    }
 }
 
 
