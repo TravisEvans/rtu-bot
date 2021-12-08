@@ -4,9 +4,8 @@
 *The following is an explanation of the functions within this program*
 #### onMessage functions
 sending the name of the function causes the function to run
-- **reminder**: Will spam someone with chosen message until told to stop
 - **workInProgress**: More to be made, currently too volatile to write about
 ---
 
 *TO BE ANNOUNCED:*\t Function Auctions, and requested functions.  
-Just need to reqrite the bot first
+Just need to write the bot first
