@@ -1,6 +1,3 @@
-////////////////
-////////////////
-
 //  testing
 function state(msg)  {
     msg.channel.send("Working for the moment!");
@@ -12,6 +9,33 @@ function help(msg) {
         "https://github.com/TravisEvans/rtu-bot \n");
     msg.author.send("More specific help is to be implemented, but for now make do with the README at the bottom, " +
         "or send a message to the developer (celery#9490)");
+}
+
+function give_role(msg) {
+    messageSplit = msg.content.split(" ");
+    let role;
+    try {
+        role = msg.guild.roles.cache.find(role => role.id === messageSplit[1] || msg.content.includes(" "+role.name+" "));
+    } catch (err) {
+        msg.channel.send("That role could not be found");
+        console.log(err);
+        return;
+    }
+
+    if (msg.mentions.members.first().name = messageSplit[2])    {
+        // The member you want to add the role to
+        let member = msg.mentions.members.first();
+        // Add role to the member
+        member.roles.add(role);
+    }
+    // Or add it to yourself
+    // msg.author.roles.add(role);
+
+    // see on_message location for final check
+}
+
+function remove_role(msg) {
+    f
 }
 
 //  reminder
@@ -107,9 +131,8 @@ function spam(callingMsg, target, spamMsg)  {
     }
 }
 
-
-
-
+// functions used externally
 module.exports.state = state;
 module.exports.help = help;
 module.exports.reminder = reminder;
+module.exports.give_role = give_role;

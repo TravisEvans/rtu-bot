@@ -20,36 +20,23 @@ app.use(express.static('client'))
 server.listen(PORT, () =>   {
     console.log("EXPRESS:\tBot launched");
 })
-
-///////////////////////////////////////////////dont know what these are, believe is for exporting vars?
-// var io = require('socket.io')(server);
-
-// io.on('connection', (socket) => {
-    //     socket.on('message', (msg) => {
-//         io.emit('message', msg);
-//     })
-// })
-///////////////////////////////////////////////dont know what these are
         
 //  Discord.js
 const Discord = require('discord.js');
-const client = new Discord.Client();
-
-client.on('ready', () => {
-    console.log(`DISCORD:\t ${client.user.tag} logged in`);
-});
+const Intents = new Discord.Intents(10110101);
+const client = new Discord.Client({Intents});
 
 //////////////
 
 client.on('ready', () => {
+    console.log(`DISCORD:\t ${client.user.tag} logged in`);
     client.channels.fetch('797492376888148008')
     .then(channel => channel.send("bot up"));  
+    client.user.setActivity('The RTU bot for the boys', { type: '' });
 })
 
 client.on('message', (msg) => {
-    // console.log(`############${Discord}, ${client}, ${msg}`);
     on_message.checkMessage(msg);
 });
-// .catch("error");
 
 client.login(BOT_TOKEN);
