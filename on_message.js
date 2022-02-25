@@ -35,6 +35,25 @@ async function checkMessage(msg) {    // msg.channel.send(msg.author.id + msg.au
             console.log("running removerole");
             functions.remove_role(msg);
         }
+        
+        // get roles list
+        if (msg.content.startsWith("_rolelist")) {
+            console.log("running rolelist");
+            functions.guild_role_list(msg);
+        }
+
+        // get permissions for me
+        if (msg.content === "_perms") {
+            console.log("running perms");
+            functions.permissions(msg);
+        }
+        
+        // purge
+        if (msg.content.startsWith("_purge")) {
+            console.log("running purge");
+            functions.purge(msg);
+        }
+
 
         // //  database
         // if (msg.content === "_make_table") {

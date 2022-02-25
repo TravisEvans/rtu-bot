@@ -1,3 +1,6 @@
+const Discord = require('discord.js');
+
+
 //  testing
 function state(msg)  {
     msg.channel.send("Working for the moment!");
@@ -67,6 +70,34 @@ async function remove_role(msg) {
     // msg.author.roles.remove(role);
 
     msg.channel.send("Done!");
+}
+
+function guild_role_list(msg) {
+    let rolemap = msg.guild.roles.cache
+        .sort((a, b) => b.position - a.position)
+        .map(r => r)
+        .join(",");
+    if (rolemap.length > 1024) rolemap = "To many roles to display";
+    if (!rolemap) rolemap = "No roles";
+    const embed = new Discord.MessageEmbed()
+        .addField("Role List", rolemap)
+    msg.channel.send(embed);
+    msg.guild.roles.cache.each(role => console.log(role.name+", "+role.id));
+}
+
+function permissions(msg)   {
+    console.log(msg.guild.me.permissions.toArray());
+}
+
+async function purge(msg) {
+    content = msg.content.split(" ");
+    let messagecount = parseInt(content[1])+1;
+    try {   
+        await msg.channel.bulkDelete(messagecount, false);
+    } catch (err) {
+        msg.channel.send("Can not delete messages 14+ days old.");
+        console.log(err);
+    }
 }
 
 //  reminder
@@ -165,6 +196,9 @@ function spam(callingMsg, target, spamMsg)  {
 // functions used externally
 module.exports.state = state;
 module.exports.help = help;
-module.exports.reminder = reminder;
 module.exports.add_role = add_role;
 module.exports.remove_role = remove_role;
+module.exports.guild_role_list = guild_role_list;
+module.exports.permissions = permissions;
+module.exports.purge = purge;
+module.exports.reminder = reminder;

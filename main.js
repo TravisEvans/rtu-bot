@@ -22,7 +22,6 @@ server.listen(PORT, () =>   {
 })
         
 //  Discord.js
-// const Discord = require('discord.js');
 const { Client, Intents } = require('discord.js');
 const botIntents = new Intents();
 botIntents.add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES);
