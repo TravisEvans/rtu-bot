@@ -11,31 +11,62 @@ function help(msg) {
         "or send a message to the developer (celery#9490)");
 }
 
-function give_role(msg) {
+async function add_role(msg) {
     messageSplit = msg.content.split(" ");
     let role;
     try {
         role = msg.guild.roles.cache.find(role => role.id === messageSplit[1] || msg.content.includes(" "+role.name+" "));
     } catch (err) {
         msg.channel.send("That role could not be found");
-        console.log(err);
         return;
     }
-
-    if (msg.mentions.members.first().name = messageSplit[2])    {
-        // The member you want to add the role to
-        let member = msg.mentions.members.first();
-        // Add role to the member
-        member.roles.add(role);
+    try {
+        if (msg.mentions.members.first() != null) {
+            member = msg.mentions.members.first();
+            await Promise.all([
+                member.roles.remove(role)
+            ]);
+        } else  {
+            msg.channel.send("An issue occurred while finding that user.");
+            return;
+        }
+    } catch (err) {
+        msg.channel.send("An issue occurred while adding the role, perhaps the role is higher than the bot?");
+        return;
     }
     // Or add it to yourself
     // msg.author.roles.add(role);
 
-    // see on_message location for final check
+    msg.channel.send("Done!");
 }
 
-function remove_role(msg) {
-    f
+async function remove_role(msg) {
+    messageSplit = msg.content.split(" ");
+    let role;
+    try {
+        role = msg.guild.roles.cache.find(role => role.id === messageSplit[1] || msg.content.includes(" " + role.name + " "));
+    } catch (err) {
+        msg.channel.send("That role could not be found");
+        return;
+    }
+    try {
+        if (msg.mentions.members.first() != null) {
+            member = msg.mentions.members.first();
+            await Promise.all([
+                member.roles.remove(role)
+            ]);
+        } else {
+            msg.channel.send("An issue occurred while finding that user.");
+            return;
+        }
+    } catch (err) {
+        msg.channel.send("An issue occurred while removing the role, perhaps the user has a higher role than the bot?");
+        return;
+    }
+    // Or remove it from yourself
+    // msg.author.roles.remove(role);
+
+    msg.channel.send("Done!");
 }
 
 //  reminder
@@ -135,4 +166,5 @@ function spam(callingMsg, target, spamMsg)  {
 module.exports.state = state;
 module.exports.help = help;
 module.exports.reminder = reminder;
-module.exports.give_role = give_role;
+module.exports.add_role = add_role;
+module.exports.remove_role = remove_role;

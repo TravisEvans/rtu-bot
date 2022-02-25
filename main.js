@@ -22,9 +22,11 @@ server.listen(PORT, () =>   {
 })
         
 //  Discord.js
-const Discord = require('discord.js');
-const Intents = new Discord.Intents(10110101);
-const client = new Discord.Client({Intents});
+// const Discord = require('discord.js');
+const { Client, Intents } = require('discord.js');
+const botIntents = new Intents();
+botIntents.add(Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS, Intents.FLAGS.GUILD_VOICE_STATES, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES);
+const client = new Client({intents: botIntents});
 
 //////////////
 
@@ -36,7 +38,11 @@ client.on('ready', () => {
 })
 
 client.on('message', (msg) => {
-    on_message.checkMessage(msg);
+    try {
+        on_message.checkMessage(msg);
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 client.login(BOT_TOKEN);

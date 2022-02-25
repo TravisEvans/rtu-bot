@@ -5,7 +5,7 @@ var functions = require('./on_message_functions.js');
 var celeryID = 171178377976348674;
 
 
-function checkMessage(msg) {    // msg.channel.send(msg.author.id + msg.author.username)
+async function checkMessage(msg) {    // msg.channel.send(msg.author.id + msg.author.username)
     if (msg.author.id == celeryID) {    //  celery is Travis Evans, me, the developer
         // console.log(`DISCORD:\tDev functions accessed by ${msg.author.tag}`)
     
@@ -24,23 +24,16 @@ function checkMessage(msg) {    // msg.channel.send(msg.author.id + msg.author.u
         }
         
         // give role
-        if (msg.content.startsWith("_giverole")) {
+        if (msg.content.startsWith("_addrole")) {
             console.log("running giverole");
-            functions.give_role(msg)
+            functions.add_role(msg);
         }
         
         
         // remove role
-        if (msg.content === "_removerole") {
+        if (msg.content.startsWith("_removerole")) {
             console.log("running removerole");
-            try {
-                functions.remove_role(msg)
-                msg.channel.send("Done!");
-            }
-            catch (err) {
-                msg.channel.send("Something went wrong.\nAre you trying to change the roles of someone " +
-                    "with bigger mommy milkers than the bot?");
-            }
+            functions.remove_role(msg);
         }
 
         // //  database
